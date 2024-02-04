@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin
 
 public class BlogsController {
-//code starta
+
     @Autowired
     public Blogservices blogservices;
 
