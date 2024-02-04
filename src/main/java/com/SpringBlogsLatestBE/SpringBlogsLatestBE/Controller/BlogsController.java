@@ -14,9 +14,7 @@ import java.util.List;
 @CrossOrigin
 
 public class BlogsController {
-    //testing completed
-
-
+  
     @Autowired
     public Blogservices blogservices;
 
