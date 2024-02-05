@@ -2,14 +2,18 @@ package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.UserDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserRoles;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class Userservices {
@@ -19,13 +23,31 @@ public class Userservices {
     @Autowired
     public PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<UserModel> addNewUser(UserModel userModel){
-        String encryptpassword=this.passwordEncoder.encode(userModel.getPassword());
-        userModel.setPassword(encryptpassword);
-        try{
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(this.userDao.save(userModel));
 
+ public Boolean checkpasswordregex(String password){
+     Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,12}$");
+     Matcher matcher = pattern.matcher(password);
+     boolean matchFound = matcher.find();
+     if(matchFound) {
+         return true;
+     } else {
+         return false;
+     }
+ }
+ public ResponseEntity<UserModel> addNewUser(UserModel userModel){
+
+        try{
+            if(checkpasswordregex(userModel.getPassword())){
+                String encryptpassword=this.passwordEncoder.encode(userModel.getPassword());
+                userModel.setPassword(encryptpassword);
+                UserModel u=this.userDao.save(userModel);
+
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(u);
+            }
+            else{
+                throw new GlobalExceptionClass("password must be min 4 and max 12 length containing atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit","400");
+            }
         }
         catch (Exception ex){
             throw new GlobalExceptionClass("failed to save user",ex.getCause(),"500");

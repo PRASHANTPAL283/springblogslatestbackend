@@ -1,10 +1,10 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,15 +13,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="UserModel")
+@Table(name="myusertable")
+@Builder
 public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
+    @NotBlank(message = "username should not ne blank")
     private String username;
+    @Email(message = "valid email must be used")
     private String email;
+
     private String password;
+
     private long phoneNumber;
 
     @ManyToMany(cascade = CascadeType.MERGE)
