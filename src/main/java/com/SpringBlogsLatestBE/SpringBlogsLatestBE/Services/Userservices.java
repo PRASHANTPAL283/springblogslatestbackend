@@ -2,14 +2,12 @@ package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.UserDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
-import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserRoles;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.regex.Matcher;
