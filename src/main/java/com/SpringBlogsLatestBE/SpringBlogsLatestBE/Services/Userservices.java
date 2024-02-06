@@ -29,23 +29,20 @@ public class Userservices {
      if(matchFound) {
          return true;
      } else {
-         return false;
+         throw new GlobalExceptionClass("password should be validate",null,"400");
      }
  }
  public ResponseEntity<UserModel> addNewUser(UserModel userModel){
-
+     String message=null;
+     checkpasswordregex(userModel.getPassword());
         try{
-            if(checkpasswordregex(userModel.getPassword())){
+
                 String encryptpassword=this.passwordEncoder.encode(userModel.getPassword());
                 userModel.setPassword(encryptpassword);
                 UserModel u=this.userDao.save(userModel);
 
                 return ResponseEntity.status(HttpStatus.OK)
                         .body(u);
-            }
-            else{
-                throw new GlobalExceptionClass("password must be min 4 and max 12 length containing atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit","400");
-            }
         }
         catch (Exception ex){
             throw new GlobalExceptionClass("failed to save user",ex.getCause(),"500");
@@ -53,7 +50,7 @@ public class Userservices {
         }
 
 
-    }
+ }
 
     public ResponseEntity<UserModel> getUserById(int id){
         Optional<UserModel> userModel=this.userDao.findById(id);

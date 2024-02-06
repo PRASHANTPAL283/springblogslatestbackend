@@ -18,6 +18,7 @@ public class RestResponseException  {
     public ResponseEntity<ErrorResponse> checkGlobalException(GlobalExceptionClass exceptionClass){
         ErrorResponse errorResponse=new ErrorResponse();
         errorResponse.setErrorCode(exceptionClass.getCode());
+        errorResponse.setMessage(exceptionClass.getMessage());
         errorResponse.setCause(String.valueOf(exceptionClass.getCause()));
         if(exceptionClass.getCode().equalsIgnoreCase("404")){
             errorResponse.setStatus(HttpStatus.NOT_FOUND);
