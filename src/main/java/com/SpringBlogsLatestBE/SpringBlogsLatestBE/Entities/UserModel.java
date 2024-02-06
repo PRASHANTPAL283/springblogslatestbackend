@@ -1,5 +1,6 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,7 +30,8 @@ public class UserModel {
 
     private long phoneNumber;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+
+    @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

@@ -6,6 +6,7 @@ import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionC
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +82,19 @@ public class Userservices {
         Collections.sort(userModelList, Comparator.comparing(UserModel::getUserId));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userModelList);
+    }
+
+    public ResponseEntity<UserModel> checkLoginUser(String username, String password){
+     Optional<UserModel> userModel=Optional.ofNullable(this.userDao.findByUsername(username));
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+     if(userModel.isPresent() && encoder.matches(password,userModel.get().getPassword())){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userModel.get());
+
+     }
+     else{
+         throw new GlobalExceptionClass("Login Failed",null,"403");
+     }
     }
 
 

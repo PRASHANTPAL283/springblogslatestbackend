@@ -19,13 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
-
+@CrossOrigin("*")
 public class FileController {
     //file
     @Value("${api_url}")
     private String apiValue;
 
+    @CrossOrigin
     @PostMapping("/addNewFile")
     public FileResponse addNewFile(@Param("file")MultipartFile file) throws Exception {
         return this.fileservices.uploadafile(file);

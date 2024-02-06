@@ -1,5 +1,6 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Controller;
 
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.LoginRequest;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services.Userservices;
 import jakarta.validation.Valid;
@@ -37,5 +38,10 @@ public class UserController {
     @GetMapping("/deleteUserById/{id}")
     public ResponseEntity<UserModel> deleteUserById(@PathVariable("id") int id){
         return this.userservices.deleteUserById(id);
+    }
+
+    @PostMapping ("/doLogin")
+    public ResponseEntity<UserModel> doLoginByUser(@RequestBody LoginRequest request){
+        return this.userservices.checkLoginUser(request.getUsername(),request.getPassword());
     }
 }

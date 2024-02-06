@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="fileEntityModel")
+@Table(name="myfileEntityModel")
 public class FileEntity {
 
     @Id
