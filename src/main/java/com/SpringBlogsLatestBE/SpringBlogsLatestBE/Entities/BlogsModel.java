@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -28,4 +31,12 @@ public class BlogsModel {
     private String description;
     private String imageUrl;
     private int imageId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="userid",referencedColumnName = "userId")
+    private UserModel userModel;
+
+    @CreationTimestamp
+    private Date date;
+    private Date lastUpdated;
+
 }

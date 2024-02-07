@@ -1,11 +1,16 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.BlogsDao;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.UserDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.BlogsModel;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -20,8 +25,13 @@ public class Blogservices {
     @Autowired
     public BlogsDao blogsDao;
 
+    @Autowired
+    public UserDao userDao;
+
     public ResponseEntity<BlogsModel> addNewBlog(BlogsModel blogsModel){
         try{
+            blogsModel.setUserModel(this.getCurrentActiveUser());
+
 
             return ResponseEntity.status(HttpStatus.OK).body(this.blogsDao.save(blogsModel));
 
@@ -29,6 +39,17 @@ public class Blogservices {
         catch (Exception e){
             throw new GlobalExceptionClass("unable to save records",e.getCause(),"500");
         }
+    }
+
+    public UserModel getCurrentActiveUser(){
+        Authentication authentication= SecurityContextHolder
+                .getContext().getAuthentication();
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            String currentUserName=authentication.getName();
+            UserModel model=this.userDao.findByUsername(currentUserName);
+            return model;
+        }
+        return null;
     }
 
     public ResponseEntity<List<BlogsModel>> getallBlogs(){
