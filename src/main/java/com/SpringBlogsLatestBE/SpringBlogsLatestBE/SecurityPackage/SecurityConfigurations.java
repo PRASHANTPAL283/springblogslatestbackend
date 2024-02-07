@@ -22,13 +22,13 @@ public class SecurityConfigurations {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
-                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.disable())
+
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
                                 .requestMatchers("/getadmin","/allusers","/deleteUserById/{id}").hasAuthority("admin")
-                                .requestMatchers("/getuser","/addBlogs","/deleteBlogById/{id}","/addNewFile","/updateFile/{id}").hasAnyAuthority("user","admin")
+                                .requestMatchers("/allusers/{id}","/addBlogs","/deleteBlogById/{id}","/updateFile/{id}").hasAnyAuthority("user","admin")
 
-                                .requestMatchers("/allblogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin").permitAll()
+                                .requestMatchers("/allBlogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin","/addNewFile").permitAll()
                                 .anyRequest().authenticated())
 
 
