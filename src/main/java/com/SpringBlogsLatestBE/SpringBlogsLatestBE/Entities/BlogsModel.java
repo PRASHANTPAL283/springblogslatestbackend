@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="Blogs model")
+@Table(name="myBlogs model")
 @Entity
 public class BlogsModel {
     @Id
@@ -37,6 +37,7 @@ public class BlogsModel {
 
     @CreationTimestamp
     private Date date;
+    @CreationTimestamp
     private Date lastUpdated;
 
 }
