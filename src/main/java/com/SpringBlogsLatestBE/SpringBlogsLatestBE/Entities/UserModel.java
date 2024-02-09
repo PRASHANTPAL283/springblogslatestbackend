@@ -24,9 +24,11 @@ public class UserModel {
     @NotBlank(message = "username should not ne blank")
     private String username;
     @Email(message = "valid email must be used")
+    @NotBlank(message = "email should not be blank")
     private String email;
 
     private String password;
+
 
     private long phoneNumber;
 
