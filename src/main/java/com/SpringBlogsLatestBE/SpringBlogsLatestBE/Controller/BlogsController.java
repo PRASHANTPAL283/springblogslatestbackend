@@ -47,4 +47,9 @@ public class BlogsController {
         return this.blogservices.deleteBlogById(id);
     }
 
+    @GetMapping("/getBlogsByUser")
+    public ResponseEntity<List<BlogsModel>> getallblogsUser(){
+        return this.blogservices.getallBlogsByUserId();
+    }
+
 }

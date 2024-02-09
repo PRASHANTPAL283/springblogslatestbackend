@@ -26,7 +26,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
                                 .requestMatchers("/getadmin","/allusers","/deleteUserById/{id}").hasAuthority("admin")
-                                .requestMatchers("/allusers/{id}","/addBlogs","/deleteBlogById/{id}","/updateFile/{id}").hasAnyAuthority("user","admin")
+                                .requestMatchers("/allusers/{id}","/addBlogs","/deleteBlogById/{id}","/updateFile/{id}","/getBlogsByUser").hasAnyAuthority("user","admin")
 
                                 .requestMatchers("/allBlogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin","/addNewFile").permitAll()
                                 .anyRequest().authenticated())
