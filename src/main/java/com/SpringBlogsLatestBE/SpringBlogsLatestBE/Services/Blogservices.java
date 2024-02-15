@@ -60,24 +60,15 @@ public class Blogservices {
     @Autowired
     public FileDao fileDao;
 
-    public void deleteFileById(int id){
-        Optional<FileEntity> fileEntity= Optional.ofNullable(this.fileDao.findByFileId(id));
-        if(fileEntity.isPresent()){
-            this.blogsDao.deleteById(id);
-        }
-        else{
-            throw new GlobalExceptionClass("file not found error","404");
-        }
 
-    }
 
     public ResponseEntity<BlogsModel> deleteBlogById(int id){
         Optional<BlogsModel> blogsModelOptional=this.blogsDao.findById(id);
         if(blogsModelOptional.isPresent()){
-            if(blogsModelOptional.get().getImageId()>0){
-                this.deleteFileById(blogsModelOptional.get().getImageId());
-            }
-            this.blogsDao.deleteById(id);
+
+            this.blogsDao.deleteFilebyId(blogsModelOptional.get().getImageId());
+            this.blogsDao.deleteBlogById(blogsModelOptional.get().getBlogId());
+
             return ResponseEntity.status(HttpStatus.OK).body(blogsModelOptional.get());
         }
         else{
