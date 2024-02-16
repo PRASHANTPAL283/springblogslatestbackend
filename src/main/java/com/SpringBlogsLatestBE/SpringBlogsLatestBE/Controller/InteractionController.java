@@ -22,7 +22,7 @@ public class InteractionController {
         return this.likeservices.doLike(likeEntity);
     }
 
-    @GetMapping("/getBlogs/{id}")
+    @GetMapping("/getLikes/{id}")
     public ResponseEntity<List<LikeEntity>> getallLikes(@PathVariable("id") int id){
         return this.likeservices.getalllikesbyblogId(id);
     }
