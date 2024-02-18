@@ -20,7 +20,7 @@ public class LikeEntity {
     @JoinColumn(name="blogId", referencedColumnName = "blogId")
     private BlogsModel blogsModel;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="userId",referencedColumnName = "userId")
     private UserModel userModel;
     private Boolean likeFlag;

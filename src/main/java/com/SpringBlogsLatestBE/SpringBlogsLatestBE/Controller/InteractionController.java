@@ -1,5 +1,6 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Controller;
 
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.DTOs.LikeCount;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.CommentModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.LikeEntity;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services.CommentServices;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class InteractionController {
     @Autowired
     public Likeservices likeservices;
@@ -35,6 +37,16 @@ public class InteractionController {
     @GetMapping("/allcomments/{id}")
     public ResponseEntity<List<CommentModel>> getallComments(@PathVariable("id") int id){
         return this.commentServices.getallcommentsByBlogId(id);
+    }
+
+    @GetMapping("/getallLikesCount/{id}")
+    public ResponseEntity<LikeCount> getallCounts(@PathVariable("id") int id){
+        return this.likeservices.getallLikesCount(id);
+    }
+
+    @GetMapping("/deleteCommentById/{id}")
+    public ResponseEntity<CommentModel> deleteCommentById(@PathVariable("id")int id){
+        return this.commentServices.deleteCommentById(id);
     }
 
 
