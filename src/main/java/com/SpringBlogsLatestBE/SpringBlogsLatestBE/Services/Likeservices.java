@@ -95,11 +95,8 @@ public class Likeservices {
         List<LikeEntity> likeEntities=new ArrayList<>();
         likeEntities=this.likeDao.findAll();
         List<LikeEntity>result=new ArrayList<>();
-        for(LikeEntity likeEntity:likeEntities){
-            if(likeEntity.getBlogsModel().getBlogId()==id){
-                result.add(likeEntity);
-            }
-        }
+       result=likeEntities.stream().filter(e->e.getBlogsModel().getBlogId()==id)
+               .collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(result);
