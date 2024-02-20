@@ -19,4 +19,16 @@ public interface BlogsDao extends JpaRepository<BlogsModel,Integer> {
     @Query("delete from BlogsModel m where m.blogId=:id")
     public void deleteBlogById(@Param("id") int id);
 
+    @Modifying
+    @Transactional
+    @Query(value="delete from mycomputer.mycomment_model where blog_id=:id",nativeQuery = true)
+    public void deleteallcomments(@Param("id") int id);
+
+    @Modifying
+    @Transactional
+    @Query(value="delete from mycomputer.my_like_entity_model where blog_id=:id",nativeQuery = true)
+    public void deleteallLikes(@Param("id") int id);
+
+
+
 }

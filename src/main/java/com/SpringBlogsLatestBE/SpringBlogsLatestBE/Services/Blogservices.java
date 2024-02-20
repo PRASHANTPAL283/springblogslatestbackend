@@ -67,6 +67,8 @@ public class Blogservices {
         if(blogsModelOptional.isPresent()){
 
             this.blogsDao.deleteFilebyId(blogsModelOptional.get().getImageId());
+            this.blogsDao.deleteallcomments(id);
+            this.blogsDao.deleteallLikes(id);
             this.blogsDao.deleteBlogById(blogsModelOptional.get().getBlogId());
 
             return ResponseEntity.status(HttpStatus.OK).body(blogsModelOptional.get());
