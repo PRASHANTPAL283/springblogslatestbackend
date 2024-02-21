@@ -34,6 +34,9 @@ public class UserModel {
 
 
     private long phoneNumber;
+    private String imageUrl;
+    @Column(nullable = true)
+    private int imageId;
 
     @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
     @JoinTable(
