@@ -37,27 +37,32 @@ public class FriendServices {
         return result;
 
     }
+    public Boolean checkIfFriendPresent(int userid, int friendid){
+      int x=this.friendsDao.checkiffriendpresent(userid,friendid);
 
-    public Boolean CheckIfFriendAlreadyPresent(int userId, int friendId){
-        Optional<UserModel> user=null;
-
-        List<FriendsEntity> list=this.getallfriends(userId);
-        if(list.size()>=1) {
-             user = Optional.ofNullable(list.stream().filter(e -> e.getFriendadded().getUserId() == friendId).findFirst().get().getFriendadded());
-        }
-        if(list.size()==0){
-            return false;
-        }
-        else if(user.get().getUserId()==userId && user.isPresent() && user!=null){
-            throw new GlobalExceptionClass("you cant add yourself friend","500");
-
-        }
-        else if(user.isPresent() && user!=null || user.get().getUserId()==userId && user.isPresent()){
+        if(x>=1){
             return true;
         }
         else{
             return false;
         }
+    }
+
+
+    public Boolean CheckIfFriendAlreadyPresent(int userId, int friendId){
+       List<FriendsEntity> friendsEntities=this.getallfriends(userId);
+       if(friendsEntities.size()==0){
+           return false;
+       }
+       else if(this.checkIfFriendPresent(userId,friendId)){
+           return true;
+       }
+       else if(userId==friendId){
+           return true;
+       }
+       else{
+           return false;
+       }
 
 
     }
