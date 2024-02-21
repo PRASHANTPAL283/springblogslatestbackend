@@ -52,4 +52,9 @@ public class BlogsController {
         return this.blogservices.getallBlogsByUserId();
     }
 
+    @GetMapping("/checkdebug")
+    public ResponseEntity<String> checkDebug(){
+        return this.blogservices.checkDebugPoint();
+    }
+
 }

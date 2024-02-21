@@ -28,7 +28,7 @@ public class SecurityConfigurations {
                                 .requestMatchers("/getadmin","/allusers","/deleteUserById/{id}").hasAuthority("admin")
                                 .requestMatchers("/allusers/{id}","/addBlogs","/deleteBlogById/{id}","/updateFile/{id}","/getBlogsByUser","/doLike","/getLikes/{id}","/doComment","/allcomments/{id}","/getallLikesCount/{id}","/deleteCommentById/{id}").hasAnyAuthority("user","admin")
 
-                                .requestMatchers("/allBlogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin","/addNewFile").permitAll()
+                                .requestMatchers("/allBlogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin","/addNewFile","/checkdebug").permitAll()
                                 .anyRequest().authenticated())
 
 

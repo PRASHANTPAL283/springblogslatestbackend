@@ -107,5 +107,33 @@ public class Blogservices {
 
     }
 
+    public ResponseEntity<String> checkDebugPoint(){
+        int x=34;
+        int y=67;
+        int z=67;
+        int a=87;
+        int s=90;
+        int r=x+y+z+a+s;
+        System.out.println(r);
+        if(x%2==0){
+            System.out.println("even");
+        }
+        else{
+            System.out.println("odd");
+        }
+        for(int i=0;i<=3;i++){
+            System.out.println(i);
+        }
+        this.checkMethodExecution();
+        return ResponseEntity.status(HttpStatus.OK).body("success");
+    }
+
+    public void checkMethodExecution(){
+        int r=2;
+        int j=3;
+        int p=r+j;
+        System.out.println(p);
+    }
+
 
 }
