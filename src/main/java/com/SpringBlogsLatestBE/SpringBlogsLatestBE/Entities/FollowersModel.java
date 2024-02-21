@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -23,5 +24,6 @@ public class FollowersModel {
     @JoinColumn(name="userId",referencedColumnName = "userId")
     private UserModel followadded;
     private int myuserid;
+    @CreationTimestamp
     private Date date;
 }
