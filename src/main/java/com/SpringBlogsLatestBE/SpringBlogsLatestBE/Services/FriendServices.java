@@ -1,6 +1,7 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.FriendsDao;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.UserDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.FriendsEntity;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionClass;
@@ -19,6 +20,9 @@ public class FriendServices {
     @Autowired
     public FriendsDao friendsDao;
 
+    @Autowired
+    public UserDao userDao;
+
     public ResponseEntity<List<FriendsEntity>> getallfriendsByUserId(int id){
         List<FriendsEntity> friendsEntities=this.friendsDao.findAll();
         List<FriendsEntity> result=new ArrayList<>();
@@ -35,13 +39,20 @@ public class FriendServices {
     }
 
     public Boolean CheckIfFriendAlreadyPresent(int userId, int friendId){
+        Optional<UserModel> user=null;
 
         List<FriendsEntity> list=this.getallfriends(userId);
-        Optional<UserModel> user=Optional.ofNullable(list.stream().filter(e->e.getFriendadded().getUserId()==friendId).findFirst().get().getFriendadded());
+        if(list.size()>=1) {
+             user = Optional.ofNullable(list.stream().filter(e -> e.getFriendadded().getUserId() == friendId).findFirst().get().getFriendadded());
+        }
         if(list.size()==0){
             return false;
         }
-        else if(user.isPresent()){
+        else if(user.get().getUserId()==userId && user.isPresent() && user!=null){
+            throw new GlobalExceptionClass("you cant add yourself friend","500");
+
+        }
+        else if(user.isPresent() && user!=null || user.get().getUserId()==userId && user.isPresent()){
             return true;
         }
         else{
@@ -51,12 +62,15 @@ public class FriendServices {
 
     }
 
+
+
     public ResponseEntity<FriendsEntity> addNewFriend(FriendsEntity friendsEntity){
         if(CheckIfFriendAlreadyPresent(friendsEntity.getMyuserId(),friendsEntity.getFriendadded().getUserId())==true){
             throw new GlobalExceptionClass("Friend already added", "500");
         }
         else{
             try {
+
                 FriendsEntity result = this.friendsDao.save(friendsEntity);
                 return ResponseEntity.status(HttpStatus.OK).body(result);
             }
