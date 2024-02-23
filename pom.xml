@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpringBlogsLatestBE</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -64,6 +65,13 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -80,7 +88,37 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId> <executions> <execution> <id>copy-resources</id> <phase>validate</phase> <goals><goal>copy-resources</goal></goals> <configuration> <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory >
+				<resources>
+					<resource>
+						<directory>D:\AngularCodes\AngularBlogsLatest\dist\code030221</directory>
+					</resource>
+				</resources>
+			</configuration>
+			</execution>
+			</executions>
+			</plugin>
+
+
 		</plugins>
+
+
+
+
 	</build>
 
 </project>

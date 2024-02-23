@@ -3,6 +3,7 @@ package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.FriendsDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.UserDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.FriendsEntity;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.LikeEntity;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionClass;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,18 @@ public class FriendServices {
             catch (Exception ex){
                 throw new GlobalExceptionClass(ex.getMessage(),ex.getCause(),"500");
             }
+        }
+    }
+
+    public ResponseEntity<FriendsEntity> deleteFriendById(int id){
+        Optional<FriendsEntity> friendsEntity=this.friendsDao.findById(id);
+        if(friendsEntity.isPresent()){
+            this.friendsDao.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(friendsEntity.get());
+        }
+        else{
+            throw new GlobalExceptionClass("friend not exist","500");
         }
     }
 

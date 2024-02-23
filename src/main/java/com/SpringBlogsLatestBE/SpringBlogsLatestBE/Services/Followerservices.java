@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,6 +65,17 @@ public class Followerservices {
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
 
+    }
+
+    public ResponseEntity<FollowersModel> deleteFollowerById(int id){
+        Optional<FollowersModel> followersModel=this.follwersDao.findById(id);
+        if(followersModel.isPresent()){
+            this.follwersDao.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(followersModel.get());
+        }
+        else{
+            throw new GlobalExceptionClass("follows doesnt exist","500");
+        }
     }
 
 

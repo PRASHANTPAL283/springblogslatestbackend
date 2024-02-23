@@ -40,6 +40,11 @@ public class UserController {
         return this.userservices.deleteUserById(id);
     }
 
+    @GetMapping("/getUserbyUsername/{username}")
+    public ResponseEntity<UserModel> getUserByItsName(@PathVariable("username") String username){
+        return this.userservices.getUserByItsName(username);
+    }
+
     @PostMapping ("/doLogin")
     public ResponseEntity<UserModel> doLoginByUser(@RequestBody LoginRequest request){
         return this.userservices.checkLoginUser(request.getUsername(),request.getPassword());

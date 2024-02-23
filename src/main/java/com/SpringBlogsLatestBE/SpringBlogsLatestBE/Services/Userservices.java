@@ -84,6 +84,16 @@ public class Userservices {
                 .body(userModelList);
     }
 
+    public ResponseEntity<UserModel> getUserByItsName(String username){
+     Optional<UserModel> userModel= Optional.ofNullable(this.userDao.findByUsername(username));
+     if(userModel.isPresent()){
+         return ResponseEntity.status(HttpStatus.OK).body(userModel.get());
+     }
+     else{
+         throw new GlobalExceptionClass("user_not_found","500");
+     }
+    }
+
     public ResponseEntity<UserModel> checkLoginUser(String username, String password){
      Optional<UserModel> userModel=Optional.ofNullable(this.userDao.findByUsername(username));
         BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();

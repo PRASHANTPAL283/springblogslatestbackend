@@ -39,5 +39,15 @@ public class FriendFollowController {
         return this.followerservices.getallfollowersbyuserid(id);
     }
 
+    @GetMapping("/deleteFriendbyId/{id}")
+    public ResponseEntity<FriendsEntity> removemyfriend(@PathVariable("id") int id){
+        return this.friendServices.deleteFriendById(id);
+    }
+
+    @GetMapping("/deleteFollowById/{id}")
+    public ResponseEntity<FollowersModel> removeFollowbyId(@PathVariable("id") int id){
+        return this.followerservices.deleteFollowerById(id);
+    }
+
 
 }
