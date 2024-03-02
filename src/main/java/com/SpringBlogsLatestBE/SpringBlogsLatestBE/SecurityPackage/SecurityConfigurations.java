@@ -30,7 +30,7 @@ public class SecurityConfigurations {
                                 ,"/addFriend","/allfriends/{id}","/addFollow","/allfollows/{id}","/deleteFriendbyId/{id}","/deleteFollowById/{id}","/getUserbyUsername/{username}"
                                 ,"/sendNewMessage","/getallmessages/{sender}/{receiver}").hasAnyAuthority("user","admin")
 
-                                .requestMatchers("/allBlogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin","/addNewFile","/checkdebug").permitAll()
+                                .requestMatchers("/allBlogs","/addUser","prodImage/downloadfile/{id}","/allblogs/{id}","/doLogin","/addNewFile","/checkdebug","/gs-guide-websocket","/topic/greetings","/app/hello","/sendNotification/{receiver}","/topic/getNotified/{receiver}").permitAll()
                                 .anyRequest().authenticated())
 
 

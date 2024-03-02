@@ -2,12 +2,14 @@ package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities;
 
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Dao.MessageDao;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.ErrorHandler.GlobalExceptionClass;
+import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +19,9 @@ public class MessageServices {
 
     public ResponseEntity<MessageModel> sendNewMessage(MessageModel messageModel){
         try{
+            Date date=new Date(System.currentTimeMillis());
+            messageModel.setDate(date);
+
 
             MessageModel result=this.messageDao.save(messageModel);
             return ResponseEntity.status(HttpStatus.OK).body(result);

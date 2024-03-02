@@ -27,8 +27,24 @@ public class Blogservices {
     @Autowired
     public UserDao userDao;
 
+
+    public BlogsModel getaccurateBlogModel(int id){
+        return this.blogsDao.findById(id).get();
+    }
+
     public ResponseEntity<BlogsModel> addNewBlog(BlogsModel blogsModel){
+        BlogsModel model=null;
+        if( blogsModel.getBlogId()!=0 ){
+            model=this.getaccurateBlogModel(blogsModel.getBlogId());
+            blogsModel.setDate(model.getDate());
+
+        }
         try{
+
+
+            Date date=new Date(System.currentTimeMillis());
+            blogsModel.setLastUpdated(date);
+
             blogsModel.setUserModel(this.getCurrentActiveUser());
 
 
@@ -117,6 +133,7 @@ public class Blogservices {
         System.out.println(r);
         if(x%2==0){
             System.out.println("even");
+            this.checkMethodExecution();
         }
         else{
             System.out.println("odd");
@@ -124,15 +141,26 @@ public class Blogservices {
         for(int i=0;i<=3;i++){
             System.out.println(i);
         }
-        this.checkMethodExecution();
+
         return ResponseEntity.status(HttpStatus.OK).body("success");
     }
 
     public void checkMethodExecution(){
+       List<BlogsModel> list= this.blogsDao.findAll();
+
         int r=2;
         int j=3;
         int p=r+j;
         System.out.println(p);
+        this.checkOtherMethod();
+    }
+    public void checkOtherMethod(){
+        int x=90;
+        int y=90;
+        System.out.println(x+y);
+        List<UserModel>userModels=this.userDao.findAll();
+
+
     }
 
 

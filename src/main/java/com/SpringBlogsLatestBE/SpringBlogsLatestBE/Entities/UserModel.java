@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -46,4 +47,8 @@ public class UserModel {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "roleId"))
     private List<UserRoles> userRolesList;
+
+    private String status;
+    
+    private Date lastseen;
 }

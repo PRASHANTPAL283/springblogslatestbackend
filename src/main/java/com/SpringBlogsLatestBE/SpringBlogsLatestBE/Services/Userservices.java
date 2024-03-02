@@ -33,22 +33,41 @@ public class Userservices {
          throw new GlobalExceptionClass("password should be validate",null,"400");
      }
  }
+
+ public Boolean checkIfUserExistOrNot(String username,int id){
+     Optional<UserModel> userModel=Optional.ofNullable(this.userDao.findByUsername(username));
+     if(userModel.isPresent() && (id==0)){
+         return true;
+     }
+     else if(id>0){
+         return false;
+     }
+     else{
+         return false;
+     }
+ }
  public ResponseEntity<UserModel> addNewUser(UserModel userModel){
-     String message=null;
-     checkpasswordregex(userModel.getPassword());
-        try{
+     if(checkIfUserExistOrNot(userModel.getUsername(),userModel.getUserId())==false){
+         String message=null;
+         checkpasswordregex(userModel.getPassword());
+         try{
 
-                String encryptpassword=this.passwordEncoder.encode(userModel.getPassword());
-                userModel.setPassword(encryptpassword);
-                UserModel u=this.userDao.save(userModel);
+             String encryptpassword=this.passwordEncoder.encode(userModel.getPassword());
+             userModel.setPassword(encryptpassword);
+             UserModel u=this.userDao.save(userModel);
 
-                return ResponseEntity.status(HttpStatus.OK)
-                        .body(u);
-        }
-        catch (Exception ex){
-            throw new GlobalExceptionClass("failed to save user",ex.getCause(),"500");
+             return ResponseEntity.status(HttpStatus.OK)
+                     .body(u);
+         }
+         catch (Exception ex){
+             throw new GlobalExceptionClass("failed to save user",ex.getCause(),"500");
 
-        }
+         }
+     }
+     else{
+         throw new GlobalExceptionClass("username already taken","500");
+     }
+
 
 
  }
