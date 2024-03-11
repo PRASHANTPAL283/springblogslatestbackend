@@ -1,8 +1,12 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Controller;
 
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Employee;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.BlogsModel;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.EmployeeEntity;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.UserModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services.Blogservices;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services.EmployeeServices;
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services.Serpapiservices;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -56,5 +61,27 @@ public class BlogsController {
     public ResponseEntity<String> checkDebug(){
         return this.blogservices.checkDebugPoint();
     }
+    @Autowired
+    public EmployeeServices employeeServices;
+
+    @GetMapping("/postallemployees")
+    public List<EmployeeEntity> saveAllEmployees() throws IOException {
+        return this.employeeServices.addAllEmployees();
+    }
+    @Autowired
+    public Serpapiservices serpapiservices;
+
+    @GetMapping("/getData")
+    public List<Object> getallData(){
+        return this.serpapiservices.getalldata();
+    }
+
+    @GetMapping("/alljsondata")
+    public List<Object> getalljsonData(){
+        return this.serpapiservices.getalljsonData();
+    }
+
+
+
 
 }

@@ -1,8 +1,10 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE;
 
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services.EmployeeServices;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class FutureTesting {
+    @Autowired
+    public EmployeeServices employeeServices;
     public void SaveEmployee(File jsonFile) throws ExecutionException, InterruptedException {
         ObjectMapper objectMapper=new ObjectMapper();
        CompletableFuture<Void> completableFuture= CompletableFuture.runAsync(new Runnable() {
