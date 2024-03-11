@@ -1,5 +1,6 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Controller;
 
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.DTOs.FlightSearchDTO;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Employee;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.BlogsModel;
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.Entities.EmployeeEntity;
@@ -71,9 +72,9 @@ public class BlogsController {
     @Autowired
     public Serpapiservices serpapiservices;
 
-    @GetMapping("/getData")
-    public List<Object> getallData(){
-        return this.serpapiservices.getalldata();
+    @PostMapping("/getData")
+    public List<Object> getallData(@RequestBody FlightSearchDTO flightSearchDTO){
+        return this.serpapiservices.getalldata(flightSearchDTO);
     }
 
     @GetMapping("/alljsondata")

@@ -1,5 +1,6 @@
 package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 
+import com.SpringBlogsLatestBE.SpringBlogsLatestBE.DTOs.FlightSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +18,22 @@ public class Serpapiservices {
     @Autowired
     public RestTemplate restTemplate;
 
-    public List<Object> getalldata(){
-        String url="https://serpapi.com/search?&engine=google_flights&departure_id=BOM&arrival_id=AUS&outbound_date=2024-03-25&return_date=2024-03-28&currency=USD&hl=en&adults=2&api_key=f3014e8d294ba28783c9626199c333ae1e3919899c886aa4052798ae958ae19a";
+    public List<Object> getalldata(FlightSearchDTO flightSearchDTO){
+        String finalurl="https://serpapi.com/" +
+                "search?engine="+flightSearchDTO.getEngine()
+                +"&departure_id="+flightSearchDTO.getDeparture_id()
+                +"&arrival_id="+flightSearchDTO.getArrival_id()
+                +"&outbound_date="+flightSearchDTO.getOutbound_date()
+                +"&return_date="+flightSearchDTO.getReturn_date()
+                +"&currency="+flightSearchDTO.getCurrency()
+                +"&hl="+flightSearchDTO.getHl()
+                +"&adults="+flightSearchDTO.getAdults()
+                +"&api_key="+flightSearchDTO.getApi_key();
+       // String url="https://serpapi.com/search?&engine=google_flights&departure_id=BOM&arrival_id=AUS&outbound_date=2024-03-25&return_date=2024-03-28&currency=USD&hl=en&adults=2&api_key=f3014e8d294ba28783c9626199c333ae1e3919899c886aa4052798ae958ae19a";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         HttpEntity<Object> entity = new HttpEntity<>( headers);
-        List<Object> objects= Collections.singletonList(restTemplate.exchange(url, HttpMethod.GET, entity, Object.class));
+        List<Object> objects= Collections.singletonList(restTemplate.exchange(finalurl, HttpMethod.GET, entity, Object.class));
         return objects;
     }
   //  headers.add("engine","google_flights");
