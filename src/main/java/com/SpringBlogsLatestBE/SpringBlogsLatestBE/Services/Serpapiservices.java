@@ -2,6 +2,7 @@ package com.SpringBlogsLatestBE.SpringBlogsLatestBE.Services;
 
 import com.SpringBlogsLatestBE.SpringBlogsLatestBE.DTOs.FlightSearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,8 @@ public class Serpapiservices {
 
     @Autowired
     public RestTemplate restTemplate;
+    @Value("${api_key}")
+    public String api_key;
 
     public List<Object> getalldata(FlightSearchDTO flightSearchDTO){
         String finalurl="https://serpapi.com/" +
@@ -28,7 +31,9 @@ public class Serpapiservices {
                 +"&currency="+flightSearchDTO.getCurrency()
                 +"&hl="+flightSearchDTO.getHl()
                 +"&adults="+flightSearchDTO.getAdults()
-                +"&api_key="+flightSearchDTO.getApi_key();
+                +"&api_key="+api_key;
+
+
        // String url="https://serpapi.com/search?&engine=google_flights&departure_id=BOM&arrival_id=AUS&outbound_date=2024-03-25&return_date=2024-03-28&currency=USD&hl=en&adults=2&api_key=f3014e8d294ba28783c9626199c333ae1e3919899c886aa4052798ae958ae19a";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
