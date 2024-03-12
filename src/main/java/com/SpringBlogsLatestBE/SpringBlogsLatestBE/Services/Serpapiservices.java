@@ -18,7 +18,7 @@ public class Serpapiservices {
 
     @Autowired
     public RestTemplate restTemplate;
-    @Value("${api_key}")
+    @Value("${flights_api_key}")
     public String api_key;
 
     public List<Object> getalldata(FlightSearchDTO flightSearchDTO){
