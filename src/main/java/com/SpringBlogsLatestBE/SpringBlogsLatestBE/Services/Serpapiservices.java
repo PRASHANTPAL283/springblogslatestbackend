@@ -65,5 +65,18 @@ public class Serpapiservices {
         return objects;
     }
 
+//    {
+//        "engine":"google_flights",
+//            "departure_id":"BOM",
+//            "arrival_id":"AUS",
+//            "outbound_date":"2024-03-25",
+//            "return_date":"2024-03-28",
+//            "currency":"USD",
+//            "hl":"en",
+//            "adults":"2"
+//
+//
+//    }
+
 
 }
