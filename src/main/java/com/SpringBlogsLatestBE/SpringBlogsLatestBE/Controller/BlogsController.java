@@ -69,13 +69,7 @@ public class BlogsController {
     public List<EmployeeEntity> saveAllEmployees() throws IOException {
         return this.employeeServices.addAllEmployees();
     }
-    @Autowired
-    public Serpapiservices serpapiservices;
-
-    @PostMapping("/getData")
-    public List<Object> getallData(@RequestBody FlightSearchDTO flightSearchDTO){
-        return this.serpapiservices.getalldata(flightSearchDTO);
-    }
+   
 
     @GetMapping("/alljsondata")
     public List<Object> getalljsonData(){
